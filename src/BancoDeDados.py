@@ -64,17 +64,14 @@ if __name__ == "__main__":
     bd = BancoDeDados()
     
     # Dados de exemplo
-    dados_usuarios = [
+    dados_usuarios = pd.DataFrame([
         {"id": 1, "nome": "João", "email": "joao@email.com"},
         {"id": 2, "nome": "Maria", "email": "maria@email.com"},
         {"id": 3, "nome": "Pedro", "email": "pedro@email.com"}
-    ]
-    
-    # Recebe tabela
-    bd.receber_tabela(dados_usuarios, "usuarios")
+    ])
     
     # Salva tabela
-    bd.salvar_tabela("usuarios")
+    bd.salvar_tabela(dados_usuarios, "usuarios")
     
     # Carrega tabela
     df_carregado = bd.carregar_tabela("usuarios")
