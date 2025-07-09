@@ -49,7 +49,7 @@ class BancoDeDados:
         caminho_arquivo = os.path.join(self.caminho_diretorio, nome_tabela)
         
         if not os.path.exists(caminho_arquivo):
-            raise FileNotFoundError(f"Arquivo não encontrado: {caminho_arquivo}")
+            return pd.DataFrame()
         
         # Carrega o arquivo Excel
         df = pd.read_excel(caminho_arquivo)

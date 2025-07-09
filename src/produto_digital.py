@@ -27,8 +27,8 @@ class ProdutoDigital(Produto):
         """
         Representação em string do produto digital
         """
-        return (f"ProdutoDigital(id={self.id}, nome='{self.nome}', "
-                f"preco={self.preco}, link_download='{self.link_download}')")
+        return (f"ProdutoDigital(id={self._id}, nome='{self._nome}', "
+                f"preco={self._preco}, link_download='{self._link_download}')")
     
     def realizar_venda(self):
         """
@@ -37,4 +37,4 @@ class ProdutoDigital(Produto):
         Simula o processo de venda, como enviar o link de download ao cliente.
         """
         # Retorna uma nova instância do produto digital
-        return ProdutoDigital(self.id, self.nome, self.preco, self.link_download)
+        return ProdutoDigital(self._id, self._nome, self._preco, self._link_download)
