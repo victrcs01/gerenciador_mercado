@@ -1,0 +1,40 @@
+from produto import Produto
+
+class ProdutoDigital(Produto):
+    def __init__(self, id: int, nome: str, preco: float, link_download: str):
+        """
+        Inicializa um produto digital
+        
+        Args:
+            id: Identificador único do produto
+            nome: Nome do produto
+            preco: Preço do produto
+            link_download: Link para download do produto
+        """
+        super().__init__(id, nome, preco)
+        self._link_download = link_download
+    
+    def gerar_link_download(self) -> str:
+        """
+        Gera ou retorna o link de download
+        
+        Returns:
+            Link para download do produto
+        """
+        return self._link_download
+    
+    def __str__(self):
+        """
+        Representação em string do produto digital
+        """
+        return (f"ProdutoDigital(id={self.id}, nome='{self.nome}', "
+                f"preco={self.preco}, link_download='{self.link_download}')")
+    
+    def realizar_venda(self):
+        """
+        Realiza a venda do produto digital
+        
+        Simula o processo de venda, como enviar o link de download ao cliente.
+        """
+        # Retorna uma nova instância do produto digital
+        return ProdutoDigital(self.id, self.nome, self.preco, self.link_download)
