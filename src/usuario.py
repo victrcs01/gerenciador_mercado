@@ -21,6 +21,39 @@ class Usuario:
         self._email = email
         self._senha = senha
         self._tipo = tipo  
+
+    # Getters
+    @property
+    def id(self) -> int:
+        """Identificador único (somente leitura)."""
+        return self._id
+
+    @property
+    def nome(self) -> str:
+        """Nome do usuário."""
+        return self._nome
+
+    @property
+    def endereco(self) -> str:
+        """Endereço do usuário."""
+        return self._endereco
+
+    @property
+    def telefone(self) -> str:
+        """Telefone do usuário."""
+        return self._telefone
+
+    @property
+    def email(self) -> str:
+        """E-mail do usuário."""
+        return self._email
+
+    @property
+    def tipo(self) -> str:
+        """Tipo de usuário (cliente, admin, etc.)."""
+        return self._tipo
+    
+    # Senha não tem getter, pois não deve ser acessada diretamente
     
     def exibir_dados(self) -> None:
         """
@@ -32,7 +65,7 @@ class Usuario:
         print(f"Endereço: {self._endereco}")
         print(f"Telefone: {self._telefone}")
         print(f"E-mail: {self._email}")
-        print(f"Senha: {'*' * len(self.senha)}")
+        print(f"Senha: {'*' * len(self._senha)}")
     
     def alterar_senha(self, nova_senha: str) -> None:
         """
@@ -41,7 +74,7 @@ class Usuario:
         Args:
             nova_senha: Nova senha
         """
-        self.senha = nova_senha
+        self._senha = nova_senha
         print("Senha alterada com sucesso!")
     
     def verificar_senha(self, senha: str) -> bool:
@@ -54,7 +87,7 @@ class Usuario:
         Returns:
             True se a senha estiver correta, False caso contrário
         """
-        return self.senha == senha
+        return self._senha == senha
     
     def atualizar_dados(self, nome: str = None, endereco: str = None, 
                        telefone: str = None, email: str = None) -> None:
@@ -89,3 +122,17 @@ class Usuario:
         Representação para debug
         """
         return self.__str__()
+    
+    def get_dic(self):
+        """
+        Retorna os dados do usuário como um dicionário
+        """
+        return {
+            "id": self._id,
+            "nome": self._nome,
+            "endereco": self._endereco,
+            "telefone": self._telefone,
+            "email": self._email,
+            "senha": self._senha,
+            "tipo": self._tipo
+        }
