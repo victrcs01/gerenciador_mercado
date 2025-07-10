@@ -96,7 +96,7 @@ class ProdutoFisico(Produto):
             raise ValueError("Endereço de destino não pode ser vazio")
 
         # Simula o cálculo do frete com base no endereço
-        mn = 10, mx = 20, 60; valor_deslocamento = mn + int(__import__('hashlib').sha256(endereco_destino.encode()).hexdigest(), 16) % (mx - mn + 1)
+        mn, mx = 10, 20; valor_deslocamento = mn + int(__import__('hashlib').sha256(endereco_destino.encode()).hexdigest(), 16) % (mx - mn + 1)
 
         volume_produto = self.calcular_volume()
 
@@ -105,4 +105,18 @@ class ProdutoFisico(Produto):
 
         return valor_frete
     
-    
+    def get_dic(self):
+        """
+        Retorna os dados do produto físico como um dicionário,
+        incluindo os dados básicos da classe pai.
+        """
+        dados = super().get_dic()
+        dados.update({
+            "tipo": "fisico",
+            "quantidade": self._quantidade,
+            "altura": self._altura,
+            "largura": self._largura,
+            "profundidade": self._profundidade,
+            "link_download": None
+        })
+        return dados

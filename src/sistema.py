@@ -3,6 +3,7 @@ import pandas as pd
 from banco_de_dados import BancoDeDados
 from mercado import Mercado
 from usuario import Usuario
+from admin import Admin
 from rich.console import Console
 from rich.prompt import Prompt
 
@@ -14,7 +15,7 @@ class Sistema:
         """ 
         self._usuario_logado = None
         self.carregar_usuarios()
-        #self.mercado = self.carregar_mercado()
+        self.mercado = Mercado()
 
     def carregar_usuarios(self):
         """
@@ -24,11 +25,15 @@ class Sistema:
         # Carrega os dados do banco de dados
         tabela_usuarios = BancoDeDados().carregar_tabela("usuarios")
 
-        # Loop em cada linha da tabela, criando uma instância de usuário
-        lista_usuarios = [
-            Usuario(id=row.id, nome=row.nome, email=row.email, senha=row.senha, endereco=row.endereco, telefone=row.telefone, tipo=row.tipo)
-            for row in tabela_usuarios.itertuples(index=False)
-        ]
+        # Loop em cada linha da tabela, criando a instância de usuário correta (Admin ou Usuario)
+        lista_usuarios = []
+        for row in tabela_usuarios.itertuples(index=False):
+            if row.tipo == 'administrador':
+                usuario = Admin(id=row.id, nome=row.nome, email=row.email, senha=row.senha, endereco=row.endereco, telefone=row.telefone)
+            else:
+                usuario = Usuario(id=row.id, nome=row.nome, email=row.email, senha=row.senha, endereco=row.endereco, telefone=row.telefone, tipo=row.tipo)
+            
+            lista_usuarios.append(usuario)
 
         self._usuarios = lista_usuarios
 
@@ -164,17 +169,29 @@ class Sistema:
             else:
                 console.print(f"[bold red]Erro: {erro}[/]")
 
-        # Salva a instância de usuários na memória
-        instancia_usuario = Usuario(
-            id=len(self._usuarios) + 1,
-            nome=nome,
-            endereco=endereco,
-            telefone=telefone,
-            email=email,
-            senha=senha,
-            tipo=tipo_usuario
-        )
+        # Cria a instância correta de acordo com o tipo de usuário
+        if tipo_usuario == 'administrador':
+            instancia_usuario = Admin(
+                id=len(self._usuarios) + 1,
+                nome=nome,
+                endereco=endereco,
+                telefone=telefone,
+                email=email,
+                senha=senha
+            )
+        else:
+            instancia_usuario = Usuario(
+                id=len(self._usuarios) + 1,
+                nome=nome,
+                endereco=endereco,
+                telefone=telefone,
+                email=email,
+                senha=senha,
+                tipo=tipo_usuario
+            )
+
         self._usuarios.append(instancia_usuario)
+        self._usuario_logado = instancia_usuario  # Define o usuário logado como o recém-criado
 
         # Salva os dados no banco de dados
         self.salvar_usuarios()
@@ -186,8 +203,7 @@ class Sistema:
         console.print(f"[cyan]Telefone:[/] {telefone_formatado}")
         console.print(f"[cyan]Email:[/] {email}")
         console.print(f"[cyan]Senha:[/] {'*' * len(senha)}")
-        
-        return instancia_usuario
+
 
     def primeiro_acesso(self):
         """
@@ -196,10 +212,7 @@ class Sistema:
         console = Console()
         
         # Aqui você pode implementar a lógica para criar um usuário administrador
-        usuario_admin = self.cadastrar_usuario(tipo_usuario='administrador')
-
-        # Define o usuário logado como o administrador criado, para não precisar fazer login novamente
-        self._usuario_logado = usuario_admin  
+        self.cadastrar_usuario(tipo_usuario='administrador')
 
         # Exemplo: solicitar dados do usuário e salvar no banco de dados
         console.print("[bold green]Usuário administrador criado com sucesso![/]")
@@ -240,7 +253,7 @@ class Sistema:
         Inicia o sistema de gerenciamento de mercado, exibindo o menu inicial.
         """
         console = Console()
-        console.print("[bold green]Bem-vindo ao Sistema de Gerenciamento de Mercado![/]")
+        console.print("[bold green]Bem-vindo ao Super Urach 💃🛍️[/]")
 
         if not self._usuarios:
             console.print("\n[bold red]Nenhum usuário cadastrado. Realize o 'Primeiro Acesso' para criar o administrador.[/]")
@@ -269,20 +282,8 @@ class Sistema:
                 console.print("\n[bold blue]Saindo do sistema. Até logo![/]")
                 return  # Encerra o programa
 
-        # --- Esta parte só é executada após um login bem-sucedido ---
+        # Quando o usuário logar, vai exibir o menu
         if self._usuario_logado:
-            console.print("\n[bold cyan]Você está no menu principal do sistema.[/]")
-            # Exemplo de como você poderia direcionar o usuário:
-            # if self._usuario_logado.tipo == 'administrador':
-            #     self.menu_admin()
-            # else:
-            #     self.menu_cliente()
-
-def main():
-    sistema = Sistema()
-    sistema.iniciar_sistema()
-
-if __name__ == "__main__":
-    main()
+            self._usuario_logado.exibir_menu(self.mercado) # Polimormfismo
 
        

@@ -55,28 +55,6 @@ class Usuario:
     
     # Senha não tem getter, pois não deve ser acessada diretamente
     
-    def exibir_dados(self) -> None:
-        """
-        Exibe os dados do usuário (sem mostrar a senha)
-        """
-        print(f"ID: {self._id}")
-        print(f"Nome: {self._nome}")
-        print(f"Tipo: {self._tipo}")
-        print(f"Endereço: {self._endereco}")
-        print(f"Telefone: {self._telefone}")
-        print(f"E-mail: {self._email}")
-        print(f"Senha: {'*' * len(self._senha)}")
-    
-    def alterar_senha(self, nova_senha: str) -> None:
-        """
-        Altera a senha do usuário
-        
-        Args:
-            nova_senha: Nova senha
-        """
-        self._senha = nova_senha
-        print("Senha alterada com sucesso!")
-    
     def verificar_senha(self, senha: str) -> bool:
         """
         Verifica se a senha fornecida está correta
@@ -88,28 +66,6 @@ class Usuario:
             True se a senha estiver correta, False caso contrário
         """
         return self._senha == senha
-    
-    def atualizar_dados(self, nome: str = None, endereco: str = None, 
-                       telefone: str = None, email: str = None) -> None:
-        """
-        Atualiza os dados do usuário
-        
-        Args:
-            nome: Novo nome (opcional)
-            endereco: Novo endereço (opcional)
-            telefone: Novo telefone (opcional)
-            email: Novo e-mail (opcional)
-        """
-        if nome is not None:
-            self.nome = nome
-        if endereco is not None:
-            self.endereco = endereco
-        if telefone is not None:
-            self.telefone = telefone
-        if email is not None:
-            self.email = email
-        
-        print("Dados atualizados com sucesso!")
     
     def __str__(self):
         """

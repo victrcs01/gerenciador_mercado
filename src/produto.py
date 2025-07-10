@@ -26,6 +26,16 @@ class Produto(ABC):
         """
         return self.__str__()
     
+    def get_dic(self):
+        """
+        Retorna os dados básicos do produto como um dicionário.
+        """
+        return {
+            "id": self._id,
+            "nome": self._nome,
+            "preco": self._preco,
+        }
+    
     @abstractmethod
     def realizar_venda(self):
         """

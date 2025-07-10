@@ -38,3 +38,19 @@ class ProdutoDigital(Produto):
         """
         # Retorna uma nova instância do produto digital
         return ProdutoDigital(self._id, self._nome, self._preco, self._link_download)
+
+    def get_dic(self):
+        """
+        Retorna os dados do produto digital como um dicionário,
+        incluindo os dados básicos da classe pai.
+        """
+        dados = super().get_dic()
+        dados.update({
+            "tipo": "digital",
+            "link_download": self._link_download,
+            "quantidade": None,
+            "altura": None,
+            "largura": None,
+            "profundidade": None
+        })
+        return dados
