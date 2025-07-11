@@ -1,4 +1,4 @@
-from produto import Produto
+from produto.produto import Produto
 import hashlib
 from rich.console import Console
 from rich.prompt import Prompt, FloatPrompt, IntPrompt

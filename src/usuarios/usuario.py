@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from rich.console import Console
 from rich.prompt import Prompt
 from rich.table import Table
-from mercado import Mercado
+from mercado.mercado import Mercado
 
 class Usuario:
     def __init__(self, id: int, nome: str, endereco: str, telefone: str, email: str, senha: str, tipo: str = 'cliente'):

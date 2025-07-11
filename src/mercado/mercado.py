@@ -1,11 +1,11 @@
 import pandas as pd
 import json
-from banco_de_dados import BancoDeDados
-from exibir_produtos import ExibirProdutos
-from pedido import Pedido
-from produto import Produto
-from produto_digital import ProdutoDigital
-from produto_fisico import ProdutoFisico
+from ferramentas.banco_de_dados import BancoDeDados
+from mercado.exibir_produtos import ExibirProdutos
+from mercado.pedido import Pedido
+from produto.produto import Produto
+from produto.produto_digital import ProdutoDigital
+from produto.produto_fisico import ProdutoFisico
 from rich.console import Console
 from rich.prompt import Prompt, FloatPrompt, IntPrompt
 from rich.table import Table

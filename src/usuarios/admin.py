@@ -1,5 +1,5 @@
-from mercado import Mercado
-from usuario import Usuario
+from mercado.mercado import Mercado
+from usuarios.usuario import Usuario
 from rich.console import Console
 from rich.table import Table
 from rich.prompt import Prompt

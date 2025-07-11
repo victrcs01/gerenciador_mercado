@@ -3,10 +3,10 @@ import json
 from typing import List, Union
 from rich.console import Console
 
-from produto import Produto
-from produto_digital import ProdutoDigital
-from produto_fisico import ProdutoFisico
-from exibir_produtos import ExibirProdutos
+from produto.produto import Produto
+from produto.produto_digital import ProdutoDigital
+from produto.produto_fisico import ProdutoFisico
+from mercado.exibir_produtos import ExibirProdutos
 
 class Pedido(ExibirProdutos):
     """

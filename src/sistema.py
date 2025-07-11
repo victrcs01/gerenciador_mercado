@@ -1,9 +1,9 @@
 import re
 import pandas as pd
-from banco_de_dados import BancoDeDados
-from mercado import Mercado
-from usuario import Usuario
-from admin import Admin
+from ferramentas.banco_de_dados import BancoDeDados
+from mercado.mercado import Mercado
+from usuarios.usuario import Usuario
+from usuarios.admin import Admin
 from rich.console import Console
 from rich.prompt import Prompt
 

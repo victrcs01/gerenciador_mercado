@@ -2,8 +2,8 @@ from abc import ABC
 from rich.console import Console
 from rich.table import Table
 
-from produto_digital import ProdutoDigital
-from produto_fisico import ProdutoFisico
+from produto.produto_digital import ProdutoDigital
+from produto.produto_fisico import ProdutoFisico
 
 class ExibirProdutos(ABC):
     def __init__(self, produtos=None):
