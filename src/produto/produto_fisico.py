@@ -67,24 +67,6 @@ class ProdutoFisico(Produto):
             return (f"ProdutoFisico(id={self._id}, nome='{self._nome}', "
                     f"preco={self._preco}, quantidade={self._quantidade}, "
                     f"dimensoes={self._altura}x{self._largura}x{self._profundidade})")
-
-    def calcular_estoque(self) -> float:
-        """
-        Calcula o estoque atual
-        
-        Returns:
-            Quantidade em estoque
-        """
-        return self._quantidade
-    
-    def repor_estoque(self, quantidade: float) -> None:
-        """
-        Atualiza a quantidade em estoque
-        
-        Args:
-            quantidade: Quantidade a ser adicionada ao estoque
-        """
-        self.quantidade += quantidade # Usa o setter implicitamente
     
     def calcular_volume(self) -> float:
         """

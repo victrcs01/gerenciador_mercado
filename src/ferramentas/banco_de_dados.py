@@ -6,11 +6,11 @@ class BancoDeDados:
         """
         Inicializa a calsse com o caminho do diretório data
         """
-        self.caminho_diretorio = os.path.join(os.getcwd(), "data")
+        self._caminho_diretorio = os.path.join(os.getcwd(), "data")
         
         # Cria o diretório data se não existir
-        if not os.path.exists(self.caminho_diretorio):
-            os.makedirs(self.caminho_diretorio)
+        if not os.path.exists(self._caminho_diretorio):
+            os.makedirs(self._caminho_diretorio)
     
     def salvar_tabela(self, dados: pd.DataFrame, nome_tabela: str) -> None:
         """
@@ -25,7 +25,7 @@ class BancoDeDados:
         if not nome_tabela.endswith('.xlsx'):
             nome_tabela += '.xlsx'
         
-        caminho_arquivo = os.path.join(self.caminho_diretorio, nome_tabela)
+        caminho_arquivo = os.path.join(self._caminho_diretorio, nome_tabela)
         
         # Salva o DataFrame em Excel
         dados.to_excel(caminho_arquivo, index=False)
@@ -45,7 +45,7 @@ class BancoDeDados:
         if not nome_tabela.endswith('.xlsx'):
             nome_tabela += '.xlsx'
         
-        caminho_arquivo = os.path.join(self.caminho_diretorio, nome_tabela)
+        caminho_arquivo = os.path.join(self._caminho_diretorio, nome_tabela)
         
         if not os.path.exists(caminho_arquivo):
             return pd.DataFrame()
