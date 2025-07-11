@@ -1,5 +1,7 @@
 from produto import Produto
 import hashlib
+from rich.console import Console
+from rich.prompt import Prompt, FloatPrompt, IntPrompt
 
 class ProdutoFisico(Produto):
     def __init__(self, id: int, nome: str, preco: float, quantidade: float, 
@@ -21,6 +23,42 @@ class ProdutoFisico(Produto):
         self._altura = altura
         self._largura = largura
         self._profundidade = profundidade
+
+    # Getters
+    @property
+    def quantidade(self) -> float:
+        return self._quantidade
+
+    @property
+    def altura(self) -> float:
+        return self._altura
+
+    @property
+    def largura(self) -> float:
+        return self._largura
+
+    @property
+    def profundidade(self) -> float:
+        return self._profundidade
+
+    # Setters
+    @quantidade.setter
+    def quantidade(self, quantidade: float):
+        if quantidade < 0:
+            raise ValueError("A quantidade não pode ser negativa.")
+        self._quantidade = quantidade
+
+    @altura.setter
+    def altura(self, altura: float):
+        if altura <= 0:
+            raise ValueError("A altura deve ser um valor positivo.")
+        self._altura = altura
+
+    @largura.setter
+    def largura(self, largura: float):
+        if largura <= 0:
+            raise ValueError("A largura deve ser um valor positivo.")
+        self._largura = largura
     
     def __str__(self):
             """
@@ -46,7 +84,7 @@ class ProdutoFisico(Produto):
         Args:
             quantidade: Quantidade a ser adicionada ao estoque
         """
-        self.quantidade += quantidade
+        self.quantidade += quantidade # Usa o setter implicitamente
     
     def calcular_volume(self) -> float:
         """
@@ -67,13 +105,13 @@ class ProdutoFisico(Produto):
         if quantidade > self._quantidade:
             raise ValueError("Quantidade insuficiente em estoque")
         
-        self._quantidade -= quantidade
+        self.quantidade -= quantidade # Usa o setter implicitamente
 
         # Retorna uma nova instância com a quantidade do pedido
         return ProdutoFisico(
-            id=self._id,
-            nome=self._nome,
-            preco=self._preco,
+            id=self.id,
+            nome=self.nome,
+            preco=self.preco,
             quantidade=quantidade,
             altura=self._altura,
             largura=self._largura,
@@ -120,3 +158,47 @@ class ProdutoFisico(Produto):
             "link_download": None
         })
         return dados
+
+    def exibir_menu_edicao(self):
+        """
+        Exibe um menu interativo para editar os atributos do produto físico.
+        """
+        console = Console()
+
+        while True:
+            console.print(f"\nEditando: [bold cyan]{self.nome}[/]")
+            console.print("\n[bold]O que você deseja editar?[/]")
+            opcoes = {
+                "1": "Nome", 
+                "2": "Preço", 
+                "3": "Quantidade", 
+                "4": "Altura (cm)", 
+                "5": "Largura (cm)", 
+                "6": "Profundidade (cm)"
+            }
+            for key, value in opcoes.items():
+                console.print(f"  [cyan]{key}.[/] {value}")
+            
+            sair_opcao = str(len(opcoes) + 1)
+            console.print(f"  [cyan]{sair_opcao}.[/] Concluir Edição")
+
+            escolha = Prompt.ask("[bold]Escolha uma opção[/]", choices=[*opcoes.keys(), sair_opcao])
+
+            if escolha == sair_opcao:
+                break
+            
+            campo = opcoes[escolha]
+            if campo == "Nome":
+                self.nome = Prompt.ask("Novo nome", default=self.nome)
+            elif campo == "Preço":
+                self.preco = FloatPrompt.ask("Novo preço (R$)", default=self.preco)
+            elif campo == "Quantidade":
+                self.quantidade = IntPrompt.ask("Nova quantidade", default=self.quantidade)
+            elif campo == "Altura (cm)":
+                self.altura = FloatPrompt.ask("Nova altura", default=self.altura)
+            elif campo == "Largura (cm)":
+                self.largura = FloatPrompt.ask("Nova largura", default=self.largura)
+            elif campo == "Profundidade (cm)":
+                self.profundidade = FloatPrompt.ask("Nova profundidade", default=self.profundidade)
+            
+            console.print("[green]Campo atualizado.[/]")

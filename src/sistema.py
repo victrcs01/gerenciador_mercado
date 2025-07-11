@@ -46,14 +46,8 @@ class Sistema:
         dados_usuarios = pd.DataFrame([dado.get_dic() for dado in self._usuarios])
         # Salva os dados no banco de dado
         BancoDeDados().salvar_tabela(dados_usuarios, "usuarios")
-    
-    def cadastrar_admin(self):
-        """
-        Cadastra um usuário administrador no sistema
-        """
-        return self.cadastrar_usuario(tipo_usuario='administrador')
 
-    def cadastrar_usuario(self, tipo_usuario='cliente'):
+    def cadastrar_usuario(self, tipo_usuario='cliente') :
         """
         Realiza o primeiro acesso ao sistema, criando um usuário administrador
         """
@@ -218,7 +212,7 @@ class Sistema:
         console.print("[bold green]Usuário administrador criado com sucesso![/]")
 
 
-    def login(self):
+    def login(self) -> Usuario | None:
         """
         Realiza o login do usuário no sistema.
         Retorna o objeto do usuário se o login for bem-sucedido, caso contrário, None.
@@ -253,7 +247,7 @@ class Sistema:
         Inicia o sistema de gerenciamento de mercado, exibindo o menu inicial.
         """
         console = Console()
-        console.print("[bold green]Bem-vindo ao Super Urach 💃🛍️[/]")
+        console.print("[bold green]Bem-vindo ao Super Urach! 💃🛍️[/]")
 
         if not self._usuarios:
             console.print("\n[bold red]Nenhum usuário cadastrado. Realize o 'Primeiro Acesso' para criar o administrador.[/]")
