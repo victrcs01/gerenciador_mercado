@@ -17,7 +17,7 @@ class ExibirProdutos(ABC):
         Exibe os produtos disponíveis no mercado ou no pedido em uma tabela formatada.
         """
         console = Console()
-        tabela = Table(title="Produtos Disponíveis", show_header=True, header_style="bold magenta")
+        tabela = Table(title="Produtos", show_header=True, header_style="bold magenta")
 
         tabela.add_column("ID", style="dim", width=6, justify="center")
         tabela.add_column("Nome", min_width=20)
@@ -25,7 +25,7 @@ class ExibirProdutos(ABC):
         tabela.add_column("Preço (R$)", justify="right")
 
         if not self._produtos:
-            console.print("[yellow]Nenhum produto cadastrado adicionado.[/yellow]")
+            console.print("[yellow]Nenhum produto adicionado.[/yellow]")
             return
 
         # Lida com dicionários (do Mercado) e listas (do Pedido)

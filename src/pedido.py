@@ -117,8 +117,8 @@ class Pedido(ExibirProdutos):
         total = 0.0
         for produto in self.produtos:
             if isinstance(produto, ProdutoFisico):
-                # Para produtos físicos, o preço é multiplicado pela quantidade no pedido
-                total += produto.preco * produto.quantidade
+                # Para produtos físicos, o preço é multiplicado pela quantidade no pedido + frete
+                total += ( produto.preco * produto.quantidade ) + produto.calcular_frete()
             else:
                 # Para produtos digitais, o preço é fixo
                 total += produto.preco

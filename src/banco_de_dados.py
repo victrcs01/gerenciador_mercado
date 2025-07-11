@@ -30,7 +30,6 @@ class BancoDeDados:
         # Salva o DataFrame em Excel
         dados.to_excel(caminho_arquivo, index=False)
         
-        print(f"Tabela '{nome_tabela}' salva em: {caminho_arquivo}")
     
     def carregar_tabela(self, nome_tabela: str) -> pd.DataFrame:
         """
@@ -54,5 +53,4 @@ class BancoDeDados:
         # Carrega o arquivo Excel
         df = pd.read_excel(caminho_arquivo)
         
-        print(f"Tabela carregada de: {caminho_arquivo}")
         return df

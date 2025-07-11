@@ -118,7 +118,7 @@ class ProdutoFisico(Produto):
             profundidade=self._profundidade
         )
     
-    def calcular_frete(self, endereco_destino: str) -> float:
+    def calcular_frete(self) -> float:
         """
         Calcula o custo do frete para o endereço de destino
         
@@ -129,17 +129,11 @@ class ProdutoFisico(Produto):
             Custo estimado do frete
         """
 
-        # Trata o endereço de destino
-        if not endereco_destino or endereco_destino.strip() == "":
-            raise ValueError("Endereço de destino não pode ser vazio")
-
         # Simula o cálculo do frete com base no endereço
-        mn, mx = 10, 20; valor_deslocamento = mn + int(__import__('hashlib').sha256(endereco_destino.encode()).hexdigest(), 16) % (mx - mn + 1)
-
         volume_produto = self.calcular_volume()
 
-        # Cálculo simples baseado no volume e deslocamento
-        valor_frete = (volume_produto * 0.5) + valor_deslocamento
+        # Cálculo simples baseado no volume
+        valor_frete = (volume_produto * 0.5)
 
         return valor_frete
     
